@@ -26,7 +26,7 @@ public class Main {
         }
         System.out.println('\n');
 
-        Map<Stanowisko, Long> liczby = firma.liczbaNaStanowisku();
+        Map<Stanowisko, Integer> liczby = firma.liczbaNaStanowisku();
         for (Stanowisko s : liczby.keySet()) {
             System.out.println(s + ": " + liczby.get(s));
         }

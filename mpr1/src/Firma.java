@@ -33,14 +33,14 @@ public class Firma {
         return mapa;
     }
 
-    public Map<Stanowisko, Long> liczbaNaStanowisku() {
-        Map<Stanowisko, Long> mapa = new HashMap<>();
+    public Map<Stanowisko, Integer> liczbaNaStanowisku() {
+        Map<Stanowisko, Integer> mapa = new HashMap<>();
 
         for (Pracownik p : pracownicy) {
             Stanowisko s = p.getStanowisko();
 
             if (!mapa.containsKey(s)) {
-                mapa.put(s, 0L);
+                mapa.put(s, 0);
             }
 
             mapa.put(s, mapa.get(s) + 1);
