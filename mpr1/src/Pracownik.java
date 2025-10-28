@@ -79,9 +79,10 @@ public class Pracownik {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Pracownik pracownik = (Pracownik) o;
-        return wynagrodznie == pracownik.wynagrodznie && Objects.equals(imie, pracownik.imie) && Objects.equals(nazwisko, pracownik.nazwisko) && Objects.equals(email, pracownik.email) && Objects.equals(nazwaFirmy, pracownik.nazwaFirmy) && stanowisko == pracownik.stanowisko;
+        if (this == o) return true;
+        if (!(o instanceof Pracownik)) return false;
+        Pracownik that = (Pracownik) o;
+        return Objects.equals(email, that.email);
     }
 
     @Override

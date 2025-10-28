@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 public class Firma {
@@ -19,6 +16,65 @@ public class Firma {
     public Firma(String nazwa) {
         this.nazwa = nazwa;
         this.pracownicy = new ArrayList<>();
+    }
+
+    public Map<Stanowisko, List<Pracownik>> grupujPoStanowisku() {
+        Map<Stanowisko, List<Pracownik>> mapa = new HashMap<>();
+
+        for (Pracownik p : pracownicy) {
+            Stanowisko s = p.getStanowisko();
+
+            if (!mapa.containsKey(s)) {
+                mapa.put(s, new ArrayList<>());
+            }
+            mapa.get(s).add(p);
+        }
+
+        return mapa;
+    }
+
+    public Map<Stanowisko, Long> liczbaNaStanowisku() {
+        Map<Stanowisko, Long> mapa = new HashMap<>();
+
+        for (Pracownik p : pracownicy) {
+            Stanowisko s = p.getStanowisko();
+
+            if (!mapa.containsKey(s)) {
+                mapa.put(s, 0L);
+            }
+
+            mapa.put(s, mapa.get(s) + 1);
+        }
+
+        return mapa;
+    }
+
+    public double srednieWynagrodzenie() {
+        if (pracownicy.isEmpty()) {
+            return 0;
+        }
+
+        double suma = 0;
+        for (Pracownik p : pracownicy) {
+            suma += p.getWynagrodznie();
+        }
+
+        return suma / pracownicy.size();
+    }
+
+    public Pracownik najlepiejZarabiajacy() {
+        if (pracownicy.isEmpty()) {
+            return null;
+        }
+
+        Pracownik najlepszy = pracownicy.get(0);
+        for (Pracownik p : pracownicy) {
+            if (p.getWynagrodznie() > najlepszy.getWynagrodznie()) {
+                najlepszy = p;
+            }
+        }
+
+        return najlepszy;
     }
 
     public String getNazwa() {
@@ -51,13 +107,8 @@ public class Firma {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (Pracownik pracownik : pracownicy) {
-            sb.append(pracownik.toString()).append("\n");
-        }
-
-        return "Firma " +
-                nazwa + '\n' +
-                "Pracownicy:\n" + sb.toString();
+        StringBuilder sb = new StringBuilder("Firma: " + nazwa + "\nPracownicy:\n");
+        pracownicy.forEach(p -> sb.append(p).append("\n"));
+        return sb.toString();
     }
 }
